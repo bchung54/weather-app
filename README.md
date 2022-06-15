@@ -1,4 +1,5 @@
-Weather-App
+# Weather-App
+
 Simple weather app that displays current weather info for a given city
 
 [Live Preview](https://bchung54.github.io/weather-app/)
