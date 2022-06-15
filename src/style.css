@@ -13,6 +13,8 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, Oxygen, Ubuntu, sans-serif;
 }
 
+/* Header */
+
 header {
 	width: 100%;
 	text-align: center;
@@ -23,6 +25,8 @@ h1 {
 	padding: 3rem;
 	font-size: 4rem;
 }
+
+/* Form */
 
 form {
 	position: absolute;
@@ -57,6 +61,8 @@ input[type='submit'] {
 #search-input {
 	width: 80%;
 }
+
+/* Weather Info */
 
 .forecast {
 	display: none;

@@ -1,11 +1,10 @@
-import _, { get } from 'lodash';
+import _ from 'lodash';
 import './style.css';
 
-const content = document.querySelector('.content');
 const forecast = document.querySelector('.forecast');
-const image = document.querySelector('img');
 const form = document.querySelector('form');
 const apiKey = '46de3c40c3fe17c18fdaf85a350ee08a';
+
 form.addEventListener('submit', function (e) {
 	const userInput = document.querySelector('#search-input');
 	const begin = Date.now();
