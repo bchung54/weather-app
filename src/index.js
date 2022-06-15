@@ -3,6 +3,7 @@ import './style.css';
 
 const forecast = document.querySelector('.forecast');
 const form = document.querySelector('form');
+const apiKey = '46de3c40c3fe17c18fdaf85a350ee08a';
 
 form.addEventListener('submit', function (e) {
 	const userInput = document.querySelector('#search-input');
@@ -27,14 +28,11 @@ form.addEventListener('submit', function (e) {
 	e.preventDefault();
 });
 
-const weatherUrl = 'http://api.openweathermap.org/data/2.5';
+const weatherUrl = 'https://api.openweathermap.org/data/2.5';
 function getData(searchTerm) {
-	return fetch(
-		`${weatherUrl}/weather?q=${searchTerm}&appid=46de3c40c3fe17c18fdaf85a350ee08a&units=imperial`,
-		{
-			mode: 'cors',
-		}
-	)
+	return fetch(`${weatherUrl}/weather?q=${searchTerm}&appid=${apiKey}&units=imperial`, {
+		mode: 'cors',
+	})
 		.then(function (response) {
 			return response.json();
 		})
