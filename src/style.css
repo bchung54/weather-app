@@ -1,0 +1,119 @@
+:root {
+	--text-background: rgba(72, 89, 109, 0.568);
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+	background-image: url(./images/abolfazl-ranjbar-HHP4NorTBbM-unsplash.jpg);
+	background-size: cover;
+	color: white;
+	font-family: -apple-system, BlinkMacSystemFont, Oxygen, Ubuntu, sans-serif;
+}
+
+header {
+	width: 100%;
+	text-align: center;
+	background-color: rgb(59, 88, 117);
+}
+
+h1 {
+	padding: 3rem;
+	font-size: 4rem;
+}
+
+form {
+	position: absolute;
+	top: 45vh;
+	left: 25vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50vw;
+	background-color: var(--text-background);
+	padding: 1rem 0;
+	border-radius: 1.5rem;
+}
+
+.moved {
+	top: 60vh;
+}
+
+form > *:not(input[type='submit']) {
+	margin-bottom: 1rem;
+	border-radius: 2rem;
+	padding: 0 1.5rem;
+	font-size: 2rem;
+}
+
+input[type='submit'] {
+	border-radius: 1.5rem;
+	padding: 0 1rem;
+	font-size: 1.5rem;
+}
+
+#search-input {
+	width: 80%;
+}
+
+.forecast {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	width: 17.5vw;
+	margin-top: 10vh;
+	border-radius: 2.5rem;
+	padding: 1rem 2.5rem;
+	background-color: var(--text-background);
+	font-size: 2rem;
+	color: black;
+}
+
+.forecast > * {
+	margin: 0.5rem;
+}
+
+.title {
+	font-size: 2.5rem;
+}
+
+.temp {
+	font-size: 3rem;
+}
+
+img {
+	width: auto;
+	height: 10rem;
+}
+
+#load-time {
+	font-size: 1rem;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	padding: 0.25rem;
+	background-color: var(--text-background);
+	color: white;
+}
+
+@keyframes display {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
+@keyframes moveSearch {
+	from {
+		top: 45vh;
+	}
+	to {
+		top: 60vh;
+	}
+}

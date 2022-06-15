@@ -1,32 +1,39 @@
-import _ from 'lodash';
+import _, { get } from 'lodash';
 import './style.css';
 
 const content = document.querySelector('.content');
+const forecast = document.querySelector('.forecast');
+const image = document.querySelector('img');
 const form = document.querySelector('form');
 const apiKey = '46de3c40c3fe17c18fdaf85a350ee08a';
 form.addEventListener('submit', function (e) {
 	const userInput = document.querySelector('#search-input');
+	const begin = Date.now();
 	getData(userInput.value).then((response) => {
+		const responseTime = Date.now() - begin;
+		document.getElementById('load-time').textContent = `Load time: ${responseTime}ms`;
 		document.querySelector('.city').textContent = `${response.name}, ${response.country}`;
 		document.querySelector('.temp').textContent = `${parseInt(response.temp)} \xBAF`;
-		document.querySelector('.desc').textContent = response.description.toUpperCase();
+		document.querySelector('img').src = selectImage(response.id);
+		document.querySelector('.desc').textContent =
+			response.description.charAt(0).toUpperCase() + response.description.slice(1);
 		document.querySelector('.humidity').textContent = `Humidity: ${response.humidity}%`;
-		document.querySelector('.wind').textContent = `Wind: ${response.windSpd}mph ${translateWind(response.windDir)}`;
-		// console.log(response);
-		form.reset();
+		document.querySelector('.wind').textContent = `Wind: ${response.windSpd}mph ${translateWind(
+			response.windDir
+		)}`;
+		forecast.style.display = 'flex';
+		forecast.style.animation = '1.2s display';
+		form.style.animation = '1s moveSearch';
+		form.classList.add('moved');
 	});
 	e.preventDefault();
 });
 
-/* async function weatherInfo(userInput) {
-	let result = await getData(userInput);
-	console.log(result);
-	return result;
-} */
-
 const weatherUrl = 'http://api.openweathermap.org/data/2.5';
 function getData(searchTerm) {
-	return fetch(`${weatherUrl}/weather?q=${searchTerm}&appid=${apiKey}&units=imperial`, { mode: 'cors' })
+	return fetch(`${weatherUrl}/weather?q=${searchTerm}&appid=${apiKey}&units=imperial`, {
+		mode: 'cors',
+	})
 		.then(function (response) {
 			return response.json();
 		})
@@ -34,12 +41,12 @@ function getData(searchTerm) {
 			const name = data.name;
 			const country = data.sys.country;
 			const temp = data.main.temp; // Fahrenheit
+			const id = data.weather[0].id; // weather condition code
 			const humidity = data.main.humidity; // %
 			const description = data.weather[0].description;
-
 			const windSpd = data.wind.speed; // mph
 			const windDir = data.wind.deg; // deg
-			return { name, country, temp, humidity, description, windSpd, windDir };
+			return { name, country, temp, id, description, humidity, windSpd, windDir };
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -49,7 +56,7 @@ function getData(searchTerm) {
 function translateWind(degrees) {
 	const step = 11.25;
 	if (_.inRange(degrees, 0, step) || _.inRange(degrees, step * 31, 360)) {
-		return 'North';
+		return 'N';
 	} else if (_.inRange(degrees, step, step * 3)) {
 		return 'NNE';
 	} else if (_.inRange(degrees, step * 3, step * 5)) {
@@ -81,7 +88,37 @@ function translateWind(degrees) {
 	} else if (_.inRange(degrees, step * 29, step * 31)) {
 		return 'NNW';
 	} else {
-		return 'error';
+		return degrees;
 	}
 }
-// getData.then((response) => console.log(response));
+
+function selectImage(id) {
+	const code = id.toString();
+	const forecast = document.querySelector('.forecast');
+	switch (parseInt(code[0])) {
+		case 2: // Thunderstorm
+			forecast.style.backgroundColor = 'darkslategray';
+			return '../src/images/icons/thunder-octopocto.png';
+		case 3: // Drizzle
+			forecast.style.backgroundColor = 'gray';
+			return '../src/images/icons/drizzle-lutifx.png';
+		case 5: // Rain
+			forecast.style.backgroundColor = 'gray';
+			return '../src/images/icons/rain-freepik.png';
+		case 6: // Snow
+			forecast.style.backgroundColor = 'white';
+			return '../src/images/icons/snowfall-andy-horvath.png';
+		case 7: // Fog
+			forecast.style.backgroundColor = 'gray';
+			return '../src/images/icons/fog-freepik.png';
+		case 8:
+			if (id == 800) {
+				forecast.style.backgroundColor = 'lightblue';
+				return '../src/images/icons/sun-stasy.png';
+			}
+			forecast.style.backgroundColor = 'white';
+			return '../src/images/icons/cloudy-day-kosonicon.png';
+		default:
+			return;
+	}
+}

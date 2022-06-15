@@ -5,21 +5,27 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Weather-App</title>
+		<link rel="stylesheet" href="../src/reset.css" />
 		<link rel="stylesheet" href="../src/style.css" />
 	<script defer src="main.js"></script></head>
 	<body>
+		<header><h1>Find Your Weather</h1></header>
 		<div class="content">
-			<form class="form">
-				<input type="text" id="search-input" placeholder="Search city..." />
-				<input type="submit" value="Search" />
-			</form>
 			<div class="forecast">
 				<div class="city"></div>
 				<div class="temp"></div>
+				<div class="image"><img src="" alt="" /></div>
 				<div class="desc"></div>
 				<div class="humidity"></div>
 				<div class="wind"></div>
+				<div id="load-time"></div>
 			</div>
+			<form class="form">
+				<label for="search-input">Find current weather info</label>
+				<input type="text" id="search-input" placeholder="Search city..." />
+				<input type="submit" value="Search" />
+			</form>
 		</div>
+		<footer>Photo by Abolfazl Ranjbar on Unsplash</footer>
 	</body>
 </html>
